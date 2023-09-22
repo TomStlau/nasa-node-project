@@ -1,0 +1,20 @@
+const express = require('express')
+const cors = require('cors')
+const morg = require('morgan')
+const bodyParser = require('body-parser')
+const path = require('path')
+const planetRouter = require('./routes/planets/planets.router')
+const launchesRouter = require('./routes/launches/launches.router')
+const app = express()
+app.use(cors({ origin: ['http://127.0.0.1:3000', 'http://localhost:3000'] }))
+app.use(morg('combined'))
+app.use(bodyParser.json())
+app.use('/planets', planetRouter)
+app.use('/launches', launchesRouter)
+app.use(express.json())
+app.use(express.static(path.join(__dirname, '..', 'public')))
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+})
+module.exports = app
