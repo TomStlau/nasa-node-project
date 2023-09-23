@@ -21,11 +21,14 @@ async function httpAddNewLaunch (req, res) {
     !launch.rocket ||
     !launch.launchDate ||
     !launch.target ||
-    launch.launchDate < new Date().toISOString().substring(0, 10) ||
-    isNaN(new Date(launch.launchDate).valueOf())
+    launch.launchDate < new Date().toISOString()
   ) {
     return res.status(400).json({
       error: 'Missing required launch property'
+    })
+  } else if (isNaN(new Date(launch.launchDate).valueOf())) {
+    return res.status(400).json({
+      error: 'Invalid launch date'
     })
   }
   scheduleNewLaunch(launch)

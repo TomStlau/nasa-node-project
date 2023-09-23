@@ -25,7 +25,7 @@ function scheduleNewLaunch (launch) {
   launches.set(
     latestFlightNumber,
     Object.assign(launch, {
-      launchDate: new Date(launch.launchDate).toISOString().substring(0, 10),
+      launchDate: new Date(launch.launchDate).toISOString(),
       mission: launch.mission,
       rocket: launch.rocket,
       customers: ['Zero to Mastery', 'NASA'],
