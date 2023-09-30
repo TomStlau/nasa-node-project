@@ -24,12 +24,17 @@ function useLaunches (onSuccessSound, onAbortSound, onFailureSound) {
       const mission = data.get('mission-name')
       const rocket = data.get('rocket-name')
       const target = data.get('planets-selector')
+      if (!launchDate || !mission || !rocket || !target) {
+        setPendingLaunch(false)
+        return
+      }
       const response = await httpSubmitLaunch({
         launchDate,
         mission,
         rocket,
         target
       })
+      // make the mission textbox empty
 
       const success = response.ok
       if (success) {
